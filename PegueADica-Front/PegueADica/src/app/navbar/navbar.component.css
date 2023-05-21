@@ -1,5 +1,5 @@
 #iconeNavBar {
-    content: url("https://i.imgur.com/G2rX04v.png");
+    content: url(src/assets/logo.png);
     width: 60px;
 }
 
@@ -8,10 +8,10 @@ a{
 }
 
 .borderColor {
-    border-color: #428bca;
+    border-color: #173ab8;
 }
 
 .corBotao:hover {
-    background-color: #17a2b8 !important;
+    background-color: #173ab8 !important;
     color: white !important;
 }
