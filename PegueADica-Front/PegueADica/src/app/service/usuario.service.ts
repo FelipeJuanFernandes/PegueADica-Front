@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.prod'
+import { User } from './../model/User';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,15 @@ export class UsuarioService {
   }
 
   getByNomeUser(nome: string) {
-    return this.http.get(`http://localhost:8080/usuario/nome/${nome}`, this.token)
+    return this.http.get(`https://cooing-school-production.up.railway.app/usuario/nome/${nome}`, this.token)
   } 
 
   getByIdUser(id: number){
-      return this.http.get(`http://localhost:8080/usuario/${id}`, this.token)
+      return this.http.get(`https://cooing-school-production.up.railway.app/usuario/${id}`, this.token)
+  }
+
+  putUsuario(usuario: User) {
+    return this.http.put('https://cooing-school-production.up.railway.app/usuario', usuario, this.token)
   }
  
 }

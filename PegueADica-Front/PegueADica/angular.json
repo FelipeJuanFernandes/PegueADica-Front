@@ -67,18 +67,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "PegueADica:build"
+            "buildTarget": "PegueADica:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "PegueADica:build:production"
+              "buildTarget": "PegueADica:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "PegueADica:build"
+            "buildTarget": "PegueADica:build"
           }
         },
         "test": {
@@ -107,7 +108,8 @@
               "e2e/tsconfig.json"
             ],
             "exclude": [
-              "**/node_modules/**"
+              "**/node_modules/**",
+              ".angular"
             ]
           }
         },
@@ -126,7 +128,6 @@
       }
     }
   },
-  "defaultProject": "PegueADica",
   "cli": {
     "analytics": "3657bda1-5dc2-4ff2-803c-9575933a5dec"
   }

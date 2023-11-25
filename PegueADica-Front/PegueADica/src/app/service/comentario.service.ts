@@ -18,27 +18,27 @@ export class ComentarioService {
   }
 
   getAllComentarios() {
-    return this.http.get("http://localhost:8080/comentario", this.token)
+    return this.http.get("https://cooing-school-production.up.railway.app/comentario", this.token)
   }
 
   getByIdComentario(id: number) {
-    return this.http.get(`http://localhost:8080/comentario/${id}`, this.token)
+    return this.http.get(`https://cooing-school-production.up.railway.app/comentario/${id}`, this.token)
   }
 
   getComentariosByPost(postId: number) { 
-    return this.http.get(`http://localhost:8080/comentario/post/${postId}`, this.token);
+    return this.http.get(`https://cooing-school-production.up.railway.app/comentario/post/${postId}`, this.token);
   }
  
   postComentario(comentario: Comentario) {
-    return this.http.post("http://localhost:8080/comentario", comentario, this.token);
+    return this.http.post("https://cooing-school-production.up.railway.app/comentario", comentario, this.token);
   }
   
-  putComentario(comentario: Comentario) {
-    return this.http.put("http://localhost:8080/comentario", comentario, this.token);
+  putComentario(id: number, comentario: Comentario) {
+    return this.http.put(`https://cooing-school-production.up.railway.app/comentario/${id}`, comentario, this.token);
   }
 
   deleteComentario(id: number) {
-    return this.http.delete(`http://localhost:8080/comentario/${id}`, this.token);
+    return this.http.delete(`https://cooing-school-production.up.railway.app/comentario/${id}`, this.token);
   }
 
 }

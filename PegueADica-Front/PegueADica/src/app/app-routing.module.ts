@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common'
 import { Routes, RouterModule } from '@angular/router';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { ContatoComponent } from './contato/contato.component';
@@ -19,6 +20,8 @@ import { PostComentarioComponent } from './post-comentario/post-comentario.compo
 import { PutComentarioComponent } from './put-comentario/put-comentario.component';
 import { DeleteComentarioComponent } from './delete-comentario/delete-comentario.component';
 import { SobreComponent } from './sobre/sobre.component';
+import { EditarCadastroComponent } from './editar-cadastro/editar-cadastro.component';
+
 
 
 const routes: Routes = [
@@ -41,11 +44,12 @@ const routes: Routes = [
   {path: 'delete-tema/:id', component: DeleteTemaComponent},
   {path: 'delete-interesse/:id', component: DeleteInteresseComponent},
   {path: 'delete-comentario/:id', component: DeleteComentarioComponent},
-  {path: 'informações', component: InformacoesComponent}
+  {path: 'informações', component: InformacoesComponent},
+  {path: 'editar-cadastro', component: EditarCadastroComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), CommonModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

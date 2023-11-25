@@ -15,27 +15,27 @@ export class TemaService {
   }
 
   getAllTemas() {
-    return this.http.get("http://localhost:8080/tema", this.token)
+    return this.http.get("https://cooing-school-production.up.railway.app/tema", this.token)
   }
 
   getByIdTema(id: number) {
-    return this.http.get(`http://localhost:8080/tema/${id}`, this.token)
+    return this.http.get(`https://cooing-school-production.up.railway.app/tema/${id}`, this.token)
   }
 
   getByNomeTema(nome: string) {
-    return this.http.get(`http://localhost:8080/tema/nome/${nome}`, this.token)
+    return this.http.get(`https://cooing-school-production.up.railway.app/tema/nome/${nome}`, this.token)
   }
 
   postTemas(tema: Tema) {
-    return this.http.post("http://localhost:8080/tema", tema, this.token)
+    return this.http.post("https://cooing-school-production.up.railway.app/tema", tema, this.token)
   }
 
-  putTemas(tema: Tema) {
-    return this.http.put("http://localhost:8080/tema", tema, this.token)
+  putTemas(id: number, tema: Tema) {
+    return this.http.put(`https://cooing-school-production.up.railway.app/tema/${id}`, tema, this.token)
   }
 
   deleteTema(id: number) {
-    return this.http.delete(`http://localhost:8080/tema/${id}`, this.token)
+    return this.http.delete(`https://cooing-school-production.up.railway.app/tema/${id}`, this.token)
   }
   
 }

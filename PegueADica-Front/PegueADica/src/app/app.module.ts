@@ -1,11 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { OrderModule } from 'ngx-order-pipe';
-import { ModalModule } from 'ngx-bootstrap/modal'
+import { ModalModule } from 'ngx-bootstrap/modal';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +32,7 @@ import { PutInteresseComponent } from './put-interesse/put-interesse.component';
 import { PostComentarioComponent } from './post-comentario/post-comentario.component';
 import { PutComentarioComponent } from './put-comentario/put-comentario.component';
 import { DeleteComentarioComponent } from './delete-comentario/delete-comentario.component';
+import { EditarCadastroComponent } from './editar-cadastro/editar-cadastro.component';
 
 
 @NgModule({
@@ -60,7 +60,8 @@ import { DeleteComentarioComponent } from './delete-comentario/delete-comentario
     PutInteresseComponent,
     PostComentarioComponent,
     PutComentarioComponent,
-    DeleteComentarioComponent
+    DeleteComentarioComponent,
+    EditarCadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -68,11 +69,10 @@ import { DeleteComentarioComponent } from './delete-comentario/delete-comentario
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
-    OrderModule,
-    ModalModule.forRoot(),
-    OAuthModule.forRoot()
+    NgxChartsModule,
+    ModalModule.forRoot()    
   ],
-  providers: [OAuthService, DatePipe],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

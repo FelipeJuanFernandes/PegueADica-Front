@@ -1,9 +1,9 @@
 import { UserLogin } from './../model/UserLogin';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../model/User';
 import { environment } from 'src/environments/environment.prod';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +11,13 @@ import { environment } from 'src/environments/environment.prod';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
-  
+
   logar(userLogin: UserLogin) {
-    return this.http.post('http://localhost:8080/usuario/logar', userLogin)
+    return this.http.post('https://cooing-school-production.up.railway.app/usuario/logar', userLogin)
   }
 
   cadastrar(user: User) {
-    return this.http.post('http://localhost:8080/usuario/cadastrar', user)
+    return this.http.post('https://cooing-school-production.up.railway.app/usuario/cadastrar', user)
   }
 
   btnSair() {
@@ -48,5 +48,6 @@ export class AuthService {
 
     return ok
   }
+
 
 }

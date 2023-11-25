@@ -11,7 +11,7 @@
 
       <div class="col-md-8">
 
-        <h3 class="text-center mb-4">
+        <h3 class="text-center mb-4" style="color: rgb(255, 255, 255);">
           {{frasePostagem}}
         </h3>
         <div class="shadow p-3 mb-5 bg-white rounded">
@@ -51,9 +51,10 @@
                 </select>
               </div>
             </div>
-
-            <div class="col-md-6 d-flex justify-content-end mr-0.75">
-              <button type="button" class="btn btn-outline-info w-25" (click)='publicar()'>Publicar</button>
+            <p></p>
+            <div class="col-md-6 m-0 ml-3">
+              <p></p>
+              <button type="button" class="btn btn-outline-info w-25" (click)="publicar()">Publicar</button>
             </div>
           </div>
 
@@ -65,11 +66,7 @@
         <nav class="d-flex justify-content-center">
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active text-black font-weight-bold" id="nav-home-tab" data-toggle="tab"
-              href="#minhas-postagens" role="tab" aria-controls="nav-home" aria-selected="true">Minhas Postagens</a>
-
-            <a class="nav-item nav-link text-black font-weight-bold" id="nav-profile-tab" data-toggle="tab"
-              href="#postagens-temas" role="tab" aria-controls="nav-profile" aria-selected="false">Postagens por
-              Tema</a>
+              href="#minhas-postagens" role="tab" aria-controls="nav-home" aria-selected="true" style="color: rgb(161, 49, 5)">Minhas Postagens</a>
           </div>
         </nav>
         <!--/Abas de seleção de posts por postagem ou tema-->
@@ -85,52 +82,57 @@
                   [(ngModel)]='titulo'>
               </div>
               <div class="col-md-2 pl-0">
-                <button class="btn btn-outline-info w-100" type="button"
+                <button class="btn btn-primary w-100" type="button"
                   (click)='findByTituloPostagem()'>Pesquisar</button>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-12">
-
-                <div class="card mt-5 mb-5 shadow p-3 bg-white rounded"
-                  *ngFor="let item of listaPostagens | orderBy : key : reverse">
-                  <div class="card-header">
-                    <div class="row d-flex align-items-center">
-                      <div class="col-md-8">
-                        <h5 class="card-title"> {{item.titulo}} </h5>
-                        <small>
-                          <p>Tema: {{item.tema.nome}} </p>
-                          <p>Interesse: {{item.interesse.nome}}</p>
-                        </small>
+                <div *ngFor="let item of listaPostagens">
+                  <div class="card mt-5 mb-5 shadow p-3 bg-white rounded">
+                    <div class="card-header">
+                      <div class="row mb-2 d-flex align-items-center">
+                        <div class="col-md-12 d-flex align-items-center">
+                          <div>
+                            <img class="rounded-circle" src="{{fotoUser}}" alt="foto do dono da postagem"
+                              style="width: 40px;">
+                          </div>
+                          <div class="ml-3">
+                            <p class="mt-auto mb-auto" style="font-size: 20px; text-transform: capitalize;"> {{nomeUser}} </p>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-md-4 d-flex justify-content-end">
-
-                        <button class="mr-3 btn btn-outline-success" [routerLink]="['/editar-post', item.id]">
-                          Editar
-                        </button>
-
-                        <button class="btn btn-outline-danger ml-3" [routerLink]="['/delete-post', item.id]">
-                          Apagar
-                        </button>
-
+                      <div class="row d-flex align-items-center">
+                        <div class="col-md-8">
+                          <h5 class="card-title"> {{item.titulo}} </h5>
+                          <small>
+                            <p>Tema: {{item.tema.nome}} </p>
+                            <p>Interesse: {{item.interesse.nome}}</p>
+                          </small>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-end">
+                          <button class="mr-3 btn btn-outline-success" [routerLink]="['/editar-post', item.id]">
+                            Editar
+                          </button>
+                          <button class="btn btn-outline-danger ml-3" [routerLink]="['/delete-post', item.id]">
+                            Apagar
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="card-body">
-                    <p class="card-text" aria-describedby="texto"> {{item.textoPostagem}} </p>
-                    <small id="texto" class="form-text m-0 text-muted mb-3 text-monospace">
-                      Postado em {{item.date | date: 'dd/MM/yyyy'}} às {{item.date | date:'HH:mm'}}</small>
+                    <div class="card-body">
+                      <p class="card-text" aria-describedby="texto"> {{item.textoPostagem}} </p>
+                      <small id="texto" class="form-text m-0 text-muted mb-3 text-monospace">
+                        Postado em {{item.date | date: 'dd/MM/yyyy'}} às {{item.date | date:'HH:mm'}}</small>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
-
-
-
-
 
           <div class="tab-pane fade" id="postagens-temas" role="tabpanel" aria-labelledby="nav-presenca-tab">
 
@@ -140,13 +142,13 @@
                   aria-label="Pesquisar" [(ngModel)]='nomeTema'>
               </div>
               <div class="col-md-2 pl-0">
-                <button class="btn btn-outline-warning w-100" type="button"
+                <button class="btn btn-outline-sucess w-100" type="button"
                   (click)='findByNomeTema()'>Pesquisar</button>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-12" *ngFor="let item of listaTema | orderBy : key : reverse">
+              <div class="col-md-12" *ngFor="let item of listaTema">
                 <div *ngFor='let post of item.postagem'>
 
                   <div class="card mt-5 mb-5 shadow p-3 bg-white rounded">
@@ -173,6 +175,9 @@
           </div>
         </div>
 
+        <button class="btn btn-primary" style="color: rgb(255, 255, 255);" (click)="generatePDF()">Exportar lista de postagens</button>
+        <p></p>
+        
       </div>
     </div>
   </div>

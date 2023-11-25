@@ -10,6 +10,9 @@ import { environment } from '../../environments/environment.prod';
 import { Router } from '@angular/router';
 import { Interesse } from '../model/Interesse';
 import { InteresseService } from '../service/interesse.service';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-perfil',
@@ -39,7 +42,10 @@ export class PerfilComponent implements OnInit {
 
   idInteresse: number
   idTema: number
-  idUser: number
+  idUser: number  
+
+  nomeUser: string
+  fotoUser: string
 
   frasePostagem: string
 
@@ -53,28 +59,25 @@ export class PerfilComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    window.scroll(0, 0)    
 
     let token = environment.token
 
-    if(token == ''){
-      this.router.navigate(['/login'])
-      this.alert.showAlertInfo('Faça o login antes de entrar no feed...')
-    }
-
-    window.scroll(0, 0)
-
-    if(environment.token == '') {
+    if(token == '') {
       this.alert.showAlertInfo("Você precisa estar logado para acessar")
       this.router.navigate(["/login"])
     }
-     
+
+    this.nomeUser = environment.nomeUser
+    this.fotoUser = environment.fotoUser
+
     this.findAllTemas()
     this.findAllInteresse()
     this.fraseAleatoria()
-    this.findAllUserPostagens()
-    
+    this.findAllUserPostagens()    
   }
 
+  
 
   publicar() {
     this.tema.id= this.idTema
@@ -83,6 +86,10 @@ export class PerfilComponent implements OnInit {
     this.postagem.tema = this.tema 
     this.user.id= environment.idUser
     this.postagem.usuario = this.user
+    this.postagem.usuario.nome = environment.nomeUser
+    this.postagem.usuario.foto = environment.fotoUser
+    this.postagem.usuario.id = environment.idUser
+    this.postagem.tipoPostagem = 'tipo genérico'
     if(this.postagem.titulo == null || this.postagem.textoPostagem == null || this.postagem.tema == null){
       this.alert.showAlertDanger('Preencha todos os campos antes de publicar!')
     } else {
@@ -90,11 +97,15 @@ export class PerfilComponent implements OnInit {
         this.postagem = resp
         this.postagem = new Postagem()
         this.alert.showAlertSuccess('Postagem realizada com sucesso!')
-        this.findAllUserPostagens()
-      })
-    }
+        this.findAllUserPostagens() 
+      })  
+      this.temaService.putTemas(this.tema.id, this.tema).subscribe((resp: Tema) => {
+        this.tema = resp
+        this.tema.qnt_posts++
+      })       
+    }   
   }
-
+    
   findAllInteresse() {
     this.interesseService.getAllInteresse().subscribe((resp: Interesse[]) => {
       this.listaInteresse = resp
@@ -164,6 +175,35 @@ export class PerfilComponent implements OnInit {
     this.usuarioService.getByIdUser(environment.idUser).subscribe((resp: User) => {    
       this.listaPostagens = resp.postagem
     })
+  }
+
+  generatePDF() {
+    const postagens = this.listaPostagens.map((item, index) => [index + 1, item.titulo]);
+  
+    const documentDefinition = {
+      content: [
+        { text: 'Lista de Postagens', style: 'header' },
+        {
+          table: {
+            headerRows: 1,
+            widths: [30, '*'],
+            body: [
+              ['Nº', 'Postagem'],
+              ...postagens,
+            ],
+          },
+        },
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          alignment: 'center',
+        },
+      },
+    };
+  
+    pdfMake.createPdf(documentDefinition).download('lista-postagens.pdf');
   }
 
   
