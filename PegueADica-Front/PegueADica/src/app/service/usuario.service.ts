@@ -29,4 +29,8 @@ export class UsuarioService {
     return this.http.put('https://cooing-school-production.up.railway.app/usuario', usuario, this.token)
   }
  
+  deleteUsuario(id: number) {
+    return this.http.delete(`https://cooing-school-production.up.railway.app/usuario/${id}`, this.token)
+  }
+
 }
